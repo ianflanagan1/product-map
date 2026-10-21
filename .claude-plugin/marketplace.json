@@ -1,0 +1,14 @@
+{
+  "name": "product-map",
+  "description": "Build an app's product map, the guide to its pages and messages that colleagues' problem reports are written against.",
+  "owner": {
+    "name": "Ian Flanagan"
+  },
+  "plugins": [
+    {
+      "name": "product-map",
+      "source": "./",
+      "description": "Build an app's product map, the guide to its pages and messages that colleagues' problem reports are written against."
+    }
+  ]
+}

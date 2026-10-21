@@ -1,0 +1,11 @@
+{
+  "name": "product-map",
+  "description": "Build an app's product map, the guide to its pages and messages that colleagues' problem reports are written against: read from the code, with Claude describing only what's new or changed.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Ian Flanagan"
+  },
+  "homepage": "https://github.com/ianflanagan1/product-map",
+  "repository": "https://github.com/ianflanagan1/product-map",
+  "license": "MIT"
+}
