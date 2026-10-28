@@ -69,10 +69,11 @@ def test_a_build_with_nothing_new_to_say_leaves_the_map_alone(repo, capsys):
     assert "v1.1.0" in path.read_text()
 
 
-def test_the_map_says_where_problems_go_as_the_workspace_file_s_tracker_table_does(repo, capsys):
+def test_the_map_says_where_problems_go_as_the_tracker_file_does(repo, capsys):
     describe_all(repo, capsys)
     build(repo)
     assert front_matter(repo)["tracker"] == {
+        "version": 1,
         "kind": "jira",
         "site": "tiny.atlassian.net",
         "space": "TINY",
@@ -82,8 +83,8 @@ def test_the_map_says_where_problems_go_as_the_workspace_file_s_tracker_table_do
 def test_a_change_to_where_problems_go_builds_the_map_again(repo, capsys):
     describe_all(repo, capsys)
     build(repo)
-    workspace = repo / ".workspace.toml"
-    workspace.write_text(workspace.read_text().replace('"TINY"', '"CAFE"'))
+    tracker = repo / ".config" / "ianf-tracker.toml"
+    tracker.write_text(tracker.read_text().replace('"TINY"', '"CAFE"'))
     assert isinstance(build(repo, check=False), Done)
     assert front_matter(repo)["tracker"]["space"] == "CAFE"
 
@@ -211,10 +212,11 @@ def test_publish_needs_a_built_map(repo, maps):
     assert not maps.exists()
 
 
-def test_an_app_without_a_workspace_file_is_named(tmp_path):
+def test_an_app_without_a_product_map_file_is_named(repo):
+    (repo / ".config" / "ianf-product-map.toml").unlink()
     with pytest.raises(Precondition) as raised:
-        build(tmp_path)
-    assert raised.value.message == f"No .workspace.toml in {tmp_path}."
+        build(repo)
+    assert raised.value.message == f"No {repo}/.config/ianf-product-map.toml."
 
 
 def test_the_command_line_runs_each_command(repo, capsys):

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/ianflanagan1/product-map/main/schema/ianf-product-map.v1.json",
+  "title": ".config/ianf-product-map.toml, version 1",
+  "description": "What product-map reads to build an app's product map. It reads this file as it is in the worktree it's given. See product-map's README.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "name", "adapter"],
+  "properties": {
+    "version": {
+      "description": "The version of this file's format.",
+      "const": 1
+    },
+    "name": {
+      "description": "What people call the app.",
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "adapter": {
+      "description": "How the app's code is laid out: one of product-map's adapters.",
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "source": {
+      "description": "The app's code, from the repository's root.",
+      "type": "string",
+      "default": "."
+    },
+    "static": {
+      "description": "The app's public scripts, from the repository's root, if it has any.",
+      "type": "string"
+    },
+    "out": {
+      "description": "Where the map and its descriptions are kept, from the repository's root.",
+      "type": "string",
+      "default": "docs/product-map"
+    }
+  }
+}

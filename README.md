@@ -31,31 +31,29 @@ A map is a folder, so Claude reads a large app's map a part at a time, as it rea
 
 An area is a part of the app as people find their way round it, read from its addresses: the pages under `/billing/...` are the area `billing`, named for its first page, and the things people do at `/billing/...` or `/api/v1/billing/...` go with them. Pages with no address, and things people do with no area of their own, are in `areas/other.md`.
 
-## The app's .workspace.toml
+## The app's settings
 
-Settings the app's team shares are in `.workspace.toml` at its repository's root. product-map reads two tables from it, and other tools read their own:
+Settings the app's team shares are committed in its repository's `.config/` directory, as [repo-settings](../repo-settings) describes. product-map reads two files there, as they are in the worktree it's given, so a branch can change them. Its own is `.config/ianf-product-map.toml`:
 
 ```toml
-[product-map]
+#:schema https://raw.githubusercontent.com/ianflanagan1/product-map/main/schema/ianf-product-map.v1.json
+version = 1                 # needed: the version of this file's format
 name = "Shop"               # needed: what people call the app
 adapter = "dog-cafe"        # needed: how its code is laid out: see below
 source = "app"              # its code, from the repository's root; "." if left out
 static = "static"           # its public scripts, if any; none if left out
 out = "docs/product-map"    # where the map and its descriptions are kept; this if left out
-
-[tracker]                   # needed: where problems with the app are filed
-kind = "jira"
-site = "your-site.atlassian.net"
-space = "PROJ"
 ```
 
-`[tracker]` is the table jira-tools reads, so a colleague's report goes where the team's own issues do; see jira-tools' `workspace.example.toml` for the rest of it. Without it, or without its `site` and `space`, there's no map: a map that couldn't say where to file a problem would leave a colleague with a report and nowhere to send it. A setting left out of `[product-map]` takes its default, and the command says so.
+The other is `.config/ianf-tracker.toml`, where problems with the app are filed: jira-tools' file, so a colleague's report goes where the team's own issues do; see jira-tools' `ianf-tracker.example.toml`. Without it, or without its `site` and `space`, there's no map: a map that couldn't say where to file a problem would leave a colleague with a report and nowhere to send it. A setting left out of `ianf-product-map.toml` takes its default, and the command says so.
+
+The first line names the file's schema, so an editor with a TOML language server checks it as you type; [`schema/`](schema) has one for each version of the format.
 
 Commit `out` with the app: the map and its descriptions are versioned and reviewed with the code they describe.
 
 ## The map's front matter
 
-A map's `index.md` opens with TOML between `+++` lines, for scripts to read without reading the map: the report-problem skill's `maps.sh` reads the app's name and where to file from it, and `jira create --workspace <map>/index.md` files there.
+A map's `index.md` opens with TOML between `+++` lines, for scripts to read without reading the map: the report-problem skill's `maps.sh` reads the app's name and where to file from it, and `jira create --tracker <map>/index.md` files there.
 
 ```toml
 +++
@@ -63,13 +61,14 @@ app = "Shop"
 built_from = "v1.4.0-12-gabc1234, 2026-10-11"
 
 [tracker]
+version = 1
 kind = "jira"
 site = "your-site.atlassian.net"
 space = "PROJ"
 +++
 ```
 
-`[tracker]` is a copy of the `.workspace.toml` table, so a change to it builds the map again; `built_from` alone changing doesn't.
+`[tracker]` is a copy of `.config/ianf-tracker.toml`, version and all, so a change to it builds the map again; `built_from` alone changing doesn't.
 
 ## Commands
 

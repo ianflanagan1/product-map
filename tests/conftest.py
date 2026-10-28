@@ -7,15 +7,16 @@ from pathlib import Path
 import pytest
 
 FILES = {
-    ".workspace.toml": """
-        [product-map]
+    ".config/ianf-product-map.toml": """
+        version = 1
         name = "Tiny Cafe"
         adapter = "dog-cafe"
         source = "app"
         static = "static"
         out = "docs/product-map"
-
-        [tracker]
+    """,
+    ".config/ianf-tracker.toml": """
+        version = 1
         kind = "jira"
         site = "tiny.atlassian.net"
         space = "TINY"

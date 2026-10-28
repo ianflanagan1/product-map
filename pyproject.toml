@@ -3,16 +3,21 @@ name = "product-map"
 version = "0.1.0"
 description = "A product map of an app, for the people who report problems with it: its pages, what's on them, who can use them and the messages they show, read from the code, with a short description of each written once by Claude."
 requires-python = ">=3.13"
-dependencies = ["cli-kit"]
+dependencies = ["cli-kit", "repo-settings"]
 
 [project.scripts]
 product-map = "product_map.__main__:main"
 
 [tool.uv.sources]
-cli-kit = { git = "https://github.com/ianflanagan1/cli-kit", branch = "main" }
+cli-kit = { git = "https://github.com/ianflanagan1/cli-kit", tag = "v0.1.0" }
+repo-settings = { git = "https://github.com/ianflanagan1/repo-settings", tag = "v0.1.0" }
 
 [dependency-groups]
-dev = ["pytest>=8", "ruff>=0.6"]
+dev = [
+    "jsonschema>=4",
+    "pytest>=8",
+    "ruff>=0.6",
+]
 
 [build-system]
 requires = ["uv_build>=0.9,<0.13"]

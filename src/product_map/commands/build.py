@@ -1,10 +1,10 @@
 """product-map build [<dir>] [--check]
 
 Writes the product map of the app in <dir>, the current folder by default, to map/ in the folder
-its .workspace.toml names, once every page and action is described: index.md, a file in areas/
-for each area of the app, and choices.md. The map is left as it is while what it says is
-unchanged, so building it after every commit changes it only when the app does. --check writes
-nothing, and fails when the map is out of date.
+its .config/ianf-product-map.toml names, once every page and action is described: index.md, a
+file in areas/ for each area of the app, and choices.md. The map is left as it is while what it
+says is unchanged, so building it after every commit changes it only when the app does. --check
+writes nothing, and fails when the map is out of date.
 """
 
 import shutil

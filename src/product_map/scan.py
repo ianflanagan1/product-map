@@ -1,4 +1,4 @@
-"""Reading an app as its .workspace.toml says, and which version of it was read."""
+"""Reading an app as its .config/ianf-product-map.toml says, and which version of it was read."""
 
 from cli_kit import proc
 

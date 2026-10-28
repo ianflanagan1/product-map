@@ -1,4 +1,4 @@
-"""The kinds of app product-map can read, by the name .workspace.toml's [product-map] gives them."""
+"""The kinds of app product-map can read, by the name ianf-product-map.toml gives them."""
 
 from collections.abc import Callable
 from pathlib import Path
