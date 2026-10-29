@@ -22,7 +22,7 @@ PLACES = 'source = "app"\nstatic = "static"\nout = "docs/map"\n'
 def write(root: Path, app: str | None, tracker: str | None) -> Path:
     """Writes the app's files in a repository at root, leaving out any given as None, and returns
     its product-map file."""
-    subprocess.run(["git", "init", "-q", str(root)], check=True)
+    subprocess.run(["git", "init", "--quiet", str(root)], check=True)
     (root / ".config").mkdir(exist_ok=True)
     path = root / ".config" / "ianf-product-map.toml"
     for content, file in ((app, path), (tracker, root / ".config" / "ianf-tracker.toml")):

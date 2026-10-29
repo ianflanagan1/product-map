@@ -191,10 +191,10 @@ def repo(tmp_path: Path) -> Path:
     root = tmp_path / "tiny-cafe"
     write(root, FILES)
     git = ["git", "-C", str(root), "-c", "user.name=T", "-c", "user.email=t@example.com"]
-    subprocess.run([*git, "init", "-q"], check=True)
+    subprocess.run([*git, "init", "--quiet"], check=True)
     subprocess.run([*git, "add", "."], check=True)
     subprocess.run(
-        [*git, "commit", "-qm", "Start", "--date=2026-10-01T09:00:00"],
+        [*git, "commit", "--quiet", "--message", "Start", "--date=2026-10-01T09:00:00"],
         check=True,
         env={"GIT_COMMITTER_DATE": "2026-10-01T09:00:00", "PATH": "/usr/bin:/bin"},
     )
