@@ -85,6 +85,8 @@ space = "PROJ"
 
 `/product-map [<dir>]` runs `pending`, writes the descriptions waiting, gives them to `describe` and runs `build`. Only you start it. It can read the app's code but not change it, and it doesn't publish.
 
+It runs on Haiku at low effort, as a subagent (`agents/describer.md`) that starts without your conversation and has only the Bash, Read, Grep and Glob tools. A caller waits for its result, as CI's `claude --print` needs.
+
 Install it as a plugin, from this folder or from GitHub:
 
 ```

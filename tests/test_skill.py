@@ -40,6 +40,22 @@ def test_only_the_user_starts_it():
     assert frontmatter()["disable-model-invocation"] == "true"
 
 
+def test_it_runs_forked_on_haiku_in_the_describer_agent_and_is_waited_for():
+    assert {k: frontmatter()[k] for k in ("model", "effort", "context", "agent", "background")} == {
+        "model": "haiku",
+        "effort": "low",
+        "context": "fork",
+        "agent": "product-map:describer",
+        "background": "false",
+    }
+
+
+def test_the_describer_agent_has_only_the_tools_the_skill_uses():
+    agent = (SKILL.parent.parent.parent / "agents" / "describer.md").read_text()
+    assert re.search(r"^name: describer$", agent, re.MULTILINE)
+    assert re.search(r"^tools: Bash, Read, Grep, Glob$", agent, re.MULTILINE)
+
+
 def test_it_checks_product_map_is_installed_as_it_loads():
     assert "command -v product-map" in loading_commands()
 

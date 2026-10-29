@@ -2,6 +2,11 @@
 name: product-map
 description: Build or update an app's product map, the guide to its pages and messages that colleagues' problem reports are written against. product-map reads the code; Claude only writes a short plain-words description of each page or action that's new or changed since the last build.
 disable-model-invocation: true
+model: haiku
+effort: low
+context: fork
+agent: product-map:describer
+background: false
 allowed-tools: Bash(command -v product-map), Bash(echo "exit $?"), Bash(product-map pending:*), Bash(product-map describe:*), Bash(product-map build:*), Bash(grep *), Bash(ls *), Read, Grep, Glob
 ---
 
