@@ -120,7 +120,7 @@ An adapter reads one kind of app into `facts.App`; everything after works for an
 
 ```sh
 cd ~/projects/cli/product-map
-devbox run setup   # uv sync, building .venv
+devbox run -- task setup   # uv sync, building .venv
 ```
 
 That also links `product-map` into `~/.local/bin`, and says so if that folder isn't on your PATH.
@@ -128,6 +128,6 @@ That also links `product-map` into `~/.local/bin`, and says so if that folder is
 ## Development
 
 ```sh
-devbox run test    # pytest
-devbox run lint    # ruff check and format
+devbox run -- task test    # pytest
+devbox run -- task lint    # ruff check and format
 ```
