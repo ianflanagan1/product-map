@@ -130,4 +130,5 @@ That also links `product-map` into `~/.local/bin`, and says so if that folder is
 ```sh
 devbox run -- task test    # pytest
 devbox run -- task lint    # ruff check and format
+devbox run -- task check   # lint, then test, failing on any problem
 ```
