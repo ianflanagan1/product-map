@@ -27,8 +27,9 @@ from repo_settings import Invalid, Missing, Settings, Source, Unlocatable, check
 
 from product_map.adapters import ADAPTERS
 
-PURPOSE = "product-map"
-TRACKER = "tracker"
+FILE = ".config/ianf-product-map.toml"
+TRACKER = ".config/ianf-tracker.toml"
+"""jira-tools' file, where it keeps it."""
 SETTINGS = ("name", "adapter", "source", "static", "out")
 WITH_DEFAULTS = ("source", "static", "out")
 
@@ -69,7 +70,7 @@ def load(directory: Path) -> Config:
     root = checkouts.this_worktree(directory)
     if root is None:
         raise Precondition(f"{directory} isn't in a worktree of a git repository.")
-    read = _read(root, PURPOSE, Version, "Create one, as product-map's README shows.")
+    read = _read(root, FILE, Version, "Create one, as product-map's README shows.")
     tracker = _tracker(root)
     match read.version:
         case Version.V1:
@@ -78,10 +79,10 @@ def load(directory: Path) -> Config:
             assert_never(read.version)
 
 
-def _read[V: IntEnum](root: Path, purpose: str, versions: type[V], missing: str) -> Settings[V]:
-    """The settings for purpose in the worktree at root. Raises Precondition, with missing as its
+def _read[V: IntEnum](root: Path, file: str, versions: type[V], missing: str) -> Settings[V]:
+    """The settings in file in the worktree at root. Raises Precondition, with missing as its
     advice when there's no file."""
-    read = repo_settings.read(Source.LOCAL_THIS_WORKTREE, root, purpose, versions)
+    read = repo_settings.read(Source.LOCAL_THIS_WORKTREE, root, file, versions)
     match read:
         case Settings():
             return read
